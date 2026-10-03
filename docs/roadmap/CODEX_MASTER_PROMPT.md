@@ -2,7 +2,7 @@
 
 Use this as a **Goal**, not a one-off task.
 
-Work on repository `roland-ecsegi/crazytrader.ai.v01`.
+Work on repository `roland-ecsegi/crazytrader.ai.v02`.
 
 Your persistent objective is to build CrazyTrader.ai all the way to **Enterprise Local / L6 LIVE CERTIFIED**, following the repository as source of truth.
 
