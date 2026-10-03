@@ -78,4 +78,4 @@ Anything above the boundary may be wrong; anything below must be deterministic, 
 
 Architecture/specification baseline audited on 2026-10-02. Implementation starts at Phase 0 and, in Autonomous Program Mode, proceeds automatically through the roadmap after each gate passes.
 
-Real-money activation remains impossible before L6 and requires an explicit owner-controlled local credential/activation step.
+General live trading remains impossible before L6. The only pre-L6 real-money exception is the explicitly owner-authorized, owner-local, tightly bounded L5 canary required to collect evidence for L6; it uses withdrawal-disabled credentials and dedicated capital/policy limits.
