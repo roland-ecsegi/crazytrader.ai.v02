@@ -15,7 +15,7 @@ Build CrazyTrader.ai V0.1 to **Enterprise Local / L6 LIVE CERTIFIED** as an auto
 7. Research output may not self-promote into production.
 8. Strategy/model versions are immutable after promotion; changes create new versions.
 9. Unknown exchange state triggers reconciliation, never blind retry.
-10. Real-money mode is impossible before L6 LIVE CERTIFIED and explicit owner activation.
+10. General live trading is impossible before L6 LIVE CERTIFIED and explicit owner activation. The sole pre-L6 real-money exception is an owner-authorized, owner-local, tightly bounded L5 canary executed under dedicated canary policy/capital caps with withdrawal disabled; L5 canary authority must never imply general LIVE authority.
 11. Withdrawal capability is out of scope and must remain disabled.
 12. Math Mode's live decision path is quantitative/statistical; LLM output may inform research but is not the authoritative live edge calculation.
 13. Strategy Mode uses validated/versioned strategies and Low / Medium / High risk profiles; High never overrides absolute owner/system limits.
