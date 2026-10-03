@@ -31,3 +31,7 @@ External content is untrusted. Use structured tools, provenance-aware memory, pe
 Internal DB/OPA/OpenBao endpoints are not directly WAN-exposed. Use least-privilege service identities, pinned dependencies/lockfiles, vulnerability scanning, SBOM before live, artifact hashes/signatures where practical and separate environment configs.
 
 Unknown safety state blocks **new risk**, not safe management of existing exposure.
+
+## Certification/live authority
+
+General LIVE risk-increasing authority requires L6 plus explicit owner activation. Before L6, the only permitted real-money risk-increasing path is the owner-local L5 bounded canary defined by the certification spec: explicit owner authorization, dedicated canary policy, tiny owner-defined capital cap, withdrawal disabled, healthy hard controls, and no expansion into general LIVE authority.
