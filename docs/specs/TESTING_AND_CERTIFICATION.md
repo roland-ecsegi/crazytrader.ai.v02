@@ -81,6 +81,8 @@ Live path technically ready; withdrawal disabled; Hard Risk/OPA/kill/reconciliat
 
 Actual canary trades are executed only on the owner-controlled Enterprise Local deployment.
 
+L5 canary is the sole pre-L6 risk-increasing live exception. It is not general LIVE mode: it requires explicit owner authorization, dedicated canary policy, a tiny owner-defined capital cap, healthy Hard Risk/OPA/reconciliation/kill controls, withdrawal-disabled credentials, and automatic stop/rollback criteria.
+
 ### L6 LIVE CERTIFIED
 Requires real canary evidence meeting predefined criteria; no unresolved critical execution/reconciliation/ledger/risk/security defects; duplicate-order/recovery/kill-switch evidence; monitoring/backups/runbooks verified; explicit owner live activation.
 
