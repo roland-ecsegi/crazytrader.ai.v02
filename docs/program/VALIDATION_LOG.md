@@ -2,6 +2,8 @@
 
 ## 2026-10-02 — Documentation / architecture audit
 
+Historical provenance: this section records the audit performed in the source v01 repository before the v02 baseline was created. PR #1/#3 and issue #4 below are v01 references, not v02-local resources.
+
 Scope:
 - complete product discussion requirements;
 - every repository file on main;
