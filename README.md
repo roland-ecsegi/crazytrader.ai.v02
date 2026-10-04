@@ -1,81 +1,34 @@
-# CrazyTrader.ai V0.1
+# CrazyTrader.ai v02
 
-CrazyTrader.ai is an autonomous, agent-controlled crypto trading platform being built as an **Enterprise Local** product first, with a separate future Enterprise SaaS commercialization phase.
+Enterprise Local crypto trading application under specification. **Current status: L0 DEVELOPMENT; documentation exists, executable application and trading evidence do not.** This is not currently simulation-, paper- or live-ready.
 
-## Product target
+## Intended complete product
 
-Enterprise Local is the complete private product for one owner / one tenant. It must eventually support real-money Binance Spot trading after formal certification; the future SaaS phase is **not** required for the owner to trade live.
+One operator, Binance Spot long-only, two independently controlled/accounted modes, eleven permanent event-driven agents including Loki, custom UI, research and controlled learning, deterministic financial safety, recovery and evidence-gated real trading. Global SaaS is a separate future product phase; it is not required for eventual owner-local live use.
 
-Core product requirements:
+Math Mode's authoritative signal is quantitative code; Strategy Mode uses immutable validated strategies and LOW/MEDIUM/HIGH parameter profiles. The first two fully described research candidates are in QUANTITATIVE_METHODS; neither is validated or claimed profitable.
 
-- **Math Mode**: quantitative/statistical live decision path; AI may research/orchestrate but does not replace the quantitative decision engine.
-- **Strategy Mode**: validated/versioned strategies with **Low / Medium / High** risk profiles.
-- Independent capital allocation and P&L for Math Mode and Strategy Mode.
-- Permanent software agents with stable identity, real executable skills, governed memory, permissions, experience, and audit history.
-- AI Gateway supporting Claude CLI/subscription workflows, Claude Agent SDK where supported, Claude API, and future providers.
-- Autonomous research and controlled learning from historical data and the platform's own executed trades.
-- Deterministic Hard Risk Engine, OPA policy enforcement, execution, reconciliation, ledger, kill switches, and recovery.
-- Binance live key with **withdrawal disabled**; live credentials are owner-local secrets and are never exposed to Codex Cloud or LLM prompts.
-- Backtest -> simulation -> paper -> shadow -> bounded canary -> L6 LIVE CERTIFIED.
-- Custom product UI and business logic. Open-source components are infrastructure building blocks, not the product identity.
+Local data processing, mathematical signals, risk, execution and accounting use ordinary local software and venue APIs, not LLM tokens. Qualified tasks invoke Claude; idle permanent agents do not. The intended AI route is the owner's official unmodified Claude Code CLI through native subscription login, subject to a real local compatibility/terms/quota test. No subscription-token proxy or automatic paid API fallback.
 
-## Performance objective
+## Financial principle
 
-The platform must optimize **sustainable risk-adjusted compounded return subject to survival, drawdown, liquidity, cost, and owner-capital constraints**.
+AI researches and explains. Deterministic models propose. Hard Risk constrains. OPA authorizes. Atomic reservations protect capital. One sender executes. Venue facts are reconciled. A balanced immutable ledger records. Learning creates reviewed candidates.
 
-There is **no guaranteed monthly return** and no hard-coded rule forcing a target such as 12%, 44%, 100% or a minimum number of trades. Zero trades is valid when the estimated edge does not clear costs and risk thresholds.
+No guaranteed returns, monthly target or required number of trades. Zero trades is valid. A well-built engine does not prove economic edge. L5 bounded owner-authorized local canary is the sole pre-L6 real-capital exception; general LIVE requires scoped L6 evidence and explicit owner activation.
 
-## Core operating principle
+## Reading order
 
-> AI proposes. Math calculates. Risk constrains. Policy authorizes. Execution executes. Exchange confirms. Ledger records. Agents learn.
+1. [Repository invariants](AGENTS.md) and [ExecPlan standard](.agent/PLANS.md).
+2. [Product acceptance](docs/specs/PRODUCT_REQUIREMENTS.md), [architecture](docs/architecture/ARCHITECTURE_V1.md) and [reuse decisions](docs/architecture/OPEN_SOURCE_ADOPTION.md).
+3. [Quantitative candidates](docs/specs/QUANTITATIVE_METHODS.md), [trading modes](docs/specs/TRADING_MODES.md) and [market data](docs/specs/MARKET_DATA.md).
+4. [Atomic financial authority](docs/specs/FINANCIAL_AUTHORIZATION.md), [execution](docs/specs/EXECUTION_AND_RECONCILIATION.md), [risk/security](docs/specs/RISK_SECURITY.md) and [ledger](docs/specs/DATA_AND_LEDGER.md).
+5. [Agents](docs/specs/AGENTS_AND_SKILLS.md), [durable runtime](docs/specs/AGENT_RUNTIME.md), [Loki](docs/specs/LOKI.md), [AI routing](docs/specs/AI_PROVIDER_ROUTING.md) and [subscription spike](docs/specs/CLAUDE_SUBSCRIPTION_SPIKE.md).
+6. [Validation gates](docs/specs/TESTING_AND_CERTIFICATION.md), [local operations](docs/specs/LOCAL_DEPLOYMENT.md) and [UI](docs/specs/UI_COMMAND_CENTER.md).
+7. [Roadmap](docs/roadmap/IMPLEMENTATION_ROADMAP.md), [task dependencies](docs/roadmap/CODEX_TASK_GRAPH.md), [status](docs/program/STATUS.md) and [known gaps](docs/program/KNOWN_ISSUES.md).
+8. [Independent audit](docs/audit/INDEPENDENT_AUDIT_2026-10-04.md) and [documentation change report](docs/audit/DOCUMENTATION_REMEDIATION_2026-10-04.md).
 
-## Financial trust boundary
+## Current checkpoint
 
-Anything above the boundary may be wrong; anything below must be deterministic, constrained, auditable, recoverable, and fail-safe.
+2026-10-04 documentation remediation refines the original 40-file baseline and records accepted ADR-0007–0009. It does not implement services, schemas, strategies, agents, tests or deployment. Start future implementation explicitly using [start.md](start.md); no development program is implicitly launched by this documentation task.
 
-    Claude / Agents / ML / Research
-                  |
-                  v
-              Proposals
-    --------------------------------
-          FINANCIAL TRUST BOUNDARY
-    --------------------------------
-                  |
-                  v
-           Hard Risk Engine
-                  |
-                  v
-                 OPA
-                  |
-                  v
-           Execution Engine
-                  |
-                  v
-               Binance
-
-## Start here
-
-1. `AGENTS.md`
-2. `.agent/PLANS.md`
-3. `docs/architecture/ARCHITECTURE_V1.md`
-4. `docs/architecture/OPEN_SOURCE_ADOPTION.md`
-5. `docs/specs/TRADING_MODES.md`
-6. `docs/specs/AGENTS_AND_SKILLS.md`
-7. `docs/specs/STRATEGY_MODEL_LIFECYCLE.md`
-8. `docs/specs/CAPITAL_GROWTH.md`
-9. `docs/specs/TRADE_INTENT.md`
-10. `docs/specs/EXECUTION_AND_RECONCILIATION.md`
-11. `docs/specs/RISK_SECURITY.md`
-12. `docs/specs/UI_COMMAND_CENTER.md`
-13. `docs/specs/LOCAL_DEPLOYMENT.md`
-14. `docs/specs/TESTING_AND_CERTIFICATION.md`
-15. `docs/roadmap/AUTONOMOUS_ENTERPRISE_LOCAL_GOAL.md`
-16. `docs/roadmap/CODEX_RESUME_PROTOCOL.md`
-17. `docs/roadmap/CODEX_MASTER_PROMPT.md`
-18. `docs/program/STATUS.md`
-
-## Current state
-
-Architecture/specification baseline audited on 2026-10-02. Implementation starts at Phase 0 and, in Autonomous Program Mode, proceeds automatically through the roadmap after each gate passes.
-
-General live trading remains impossible before L6. The only pre-L6 real-money exception is the explicitly owner-authorized, owner-local, tightly bounded L5 canary required to collect evidence for L6; it uses withdrawal-disabled credentials and dedicated capital/policy limits.
+Security is required now: withdrawal-disabled local keys, authenticated control interface, isolated agents/research, no live secrets in cloud, backups and tested recovery. “Local enterprise” does not mean postponing these protections until SaaS.

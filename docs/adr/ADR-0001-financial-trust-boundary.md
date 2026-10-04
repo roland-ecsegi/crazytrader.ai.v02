@@ -18,7 +18,7 @@ They may:
 - research;
 - propose;
 - explain;
-- create TradeIntent proposals.
+- create typed research/allocation proposals. Live-eligible TradeIntent records are emitted only by authorized deterministic producers or the authenticated owner workflow (2026-10-04 refinement, ADR-0009).
 
 They may not:
 
@@ -49,8 +49,9 @@ Benefits:
 
 Costs:
 
-- more services and contracts;
+- more logical modules and contracts (separate processes only where justified by ADR-0007);
 - extra latency;
 - more engineering effort.
 
 The additional complexity is accepted because it protects the real-money system.
+

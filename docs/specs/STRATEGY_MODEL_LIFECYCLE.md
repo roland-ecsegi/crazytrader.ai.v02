@@ -1,17 +1,17 @@
-# Strategy and Model Lifecycle V1
+# Strategy, model and learning lifecycle
 
-Agents may research continuously; no unvalidated artifact reaches live capital.
+Status: DEFINED; registry, experiments and promotion enforcement MISSING.
 
-Lifecycle:
+Lifecycle: DRAFT -> VERIFIED -> BACKTESTED -> OUT_OF_SAMPLE -> WALK_FORWARD -> ROBUSTNESS_PASSED -> PAPER -> SHADOW -> CANARY_ELIGIBLE -> LIVE. Any research stage can produce REJECTED or INSUFFICIENT_EVIDENCE. Post-live: LIVE -> DEGRADED -> SUSPENDED -> RETIRED. These artifact states are distinct from engine L0–L6 certification.
 
-DRAFT -> BACKTESTED -> VALIDATED -> OUT_OF_SAMPLE -> WALK_FORWARD -> PAPER -> SHADOW -> CANARY_ELIGIBLE -> LIVE.
+Promotions bind artifact/code hash, candidate/profile versions, dataset/feature/label/cost provenance, all trial records, split dates, metrics/uncertainty, scope, risk review, deterministic policy decision and evidence reviewer. Agents propose promotions; they do not authorize themselves. A previously validated version may be restored only if current scope, venue behavior and operational checks still hold.
 
-Post-live: LIVE -> DEGRADED -> SUSPENDED -> RETIRED. Rollback may reactivate a previously validated immutable version when policy permits.
+## Learning without selection bias
 
-Validation includes realistic costs/liquidity, look-ahead leakage controls, train/validation/test separation, regime performance, overfit/parameter stability, drawdown/tail loss, execution realism and full data/config lineage. Use time-series purging/embargo or equivalent when appropriate.
+Create DecisionObservation for every eligible evaluation including no-signal, abstention, rejected proposal, approved/unfilled order and executed trade. Record the information available at decision time, reason and eligibility; subsequent OutcomeObservation is linked only after its horizon matures. Keep counterfactual estimates distinct from actual fills/P&L; a rejected order's hypothetical return is not earned profit.
 
-Promotion records immutable artifact hash, dataset/features/config versions, metrics/evidence, risk review, policy decision and audit event. Research agents propose; they do not self-authorize.
+ExperienceRecord links observations, task/strategy/model versions, market/risk state, fills/costs and anomalies. Learning Agent can find patterns and propose new experiments; it cannot conclude from winners or executed trades alone. Changes to filters, features, costs, hyperparameters, training data or profiles create a new version and count as new trials.
 
-Executed trades create provenance-rich ExperienceRecords. Learning can generate hypotheses/candidates. Certified artifacts never mutate silently. Adaptive live updates require bounded/versioned/auditable rules and rollback.
+Initial live artifacts are frozen between governed promotions. Online adaptive live learning is deferred until a bounded algorithm, safety envelope, reproducible state, independent validation and rollback are separately specified. No LLM may patch deployed code/weights/policy in response to losses.
 
-Deterministic monitoring may reduce allocation or suspend degraded artifacts while preserving safe position reduction/closure.
+Deterministic drift monitoring can reduce allocation, suspend a candidate or request review under preauthorized rules. It cannot loosen hard limits or promise that retraining restores profitability. Performance and calibration monitoring record observation dependence, effective sample size and missing regimes.

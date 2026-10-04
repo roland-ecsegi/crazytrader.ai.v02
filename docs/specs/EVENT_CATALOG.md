@@ -1,136 +1,32 @@
-# Event Catalog V1
+# Event catalog and delivery semantics
 
-## Event standard
+Status: DEFINED v1 contract; executable schemas and transports MISSING. Events report facts; commands request actions. Receiving an event is not new financial authority.
 
-Every event must carry:
+## Envelope
 
-- event_id
-- event_type
-- schema_version
-- occurred_at
-- tenant_id
-- source_service
-- trace_id
-- correlation_id
-- causation_id when applicable
-- actor_id when applicable
-- payload
+event_id, event_type, schema_version, owner_id/tenant_id, aggregate_type/id/revision, source_module, occurred_at, recorded_at, available_at when relevant, trace_id, correlation_id, causation_id, actor_id if applicable, payload, payload_hash and producer build/config version. Market events also retain venue event/receive/sequence semantics from MARKET_DATA. Immutable; incompatible changes create a new version.
 
-Events are immutable.
+No global timestamp total order is assumed. Consumers enforce aggregate revision/sequence where required, detect gaps and deduplicate event_id/source fact. Financial mutation + inbox receipt + outbox entry share a database transaction. At-least-once delivery is the baseline; PostgreSQL outbox is sufficient initially. NATS may be added later without changing financial semantics.
 
-Breaking schema changes require a new schema version.
+## Catalog
 
-## Market events
+All names below are `.v1` contracts to implement, not existing handlers.
 
-- MarketTickReceived.v1
-- MarketTradeReceived.v1
-- MarketBookUpdated.v1
-- MarketCandleClosed.v1
-- MarketDataStale.v1
-- MarketDataRecovered.v1
-- MarketSequenceGapDetected.v1
+| Area | Events |
+|---|---|
+| Market | MarketTickReceived, MarketTradeReceived, MarketBookUpdated, MarketCandleClosed, MarketDataStale, MarketDataRecovered, MarketSequenceGapDetected, DatasetVersionPublished |
+| Signals/observations | MathSignalProduced, StrategySignalProduced, MarketRegimeChanged, DecisionObserved, DecisionAbstained, OutcomeMatured |
+| Intent/authority | TradeIntentCreated, TradeIntentExpired, TradeIntentRiskApproved, TradeIntentRiskDenied, TradeIntentPolicyApproved, TradeIntentPolicyDenied, CapitalReserved, SubmissionAuthorized, AuthorizationInvalidated, TradeIntentExecutionRequested |
+| Order facts | OrderSubmissionStarted, OrderSubmitted, OrderAcknowledged, OrderPartiallyFilled, OrderFilled, OrderCancelRequested, OrderCancelled, OrderRejected, OrderExpired, OrderStateUnknown, OrderRecoveryStarted, OrderRecovered |
+| Ledger/portfolio | LedgerTransactionPosted, ReservationConsumed, ReservationReleased, CapitalAllocationProposed, CapitalAllocated, CapitalAllocationReduced, PositionOpened, PositionIncreased, PositionReduced, PositionClosed, ExternalAccountAdjustmentDetected |
+| Risk/control | RiskWarningRaised, RiskDecisionDenied, DailyLossLimitReached, WeeklyLossLimitReached, DrawdownLimitReached, ExposureLimitReached, TradingBlocked, TradingUnblocked, GlobalKillActivated, GlobalKillCleared, OwnerActivationChanged |
+| Reconciliation | ReconciliationStarted, ReconciliationCompleted, ReconciliationMismatchDetected, ReconciliationCriticalMismatch, ReconciliationRecovered |
+| Agent/provider | AgentTaskCreated, AgentTaskClaimed, AgentTaskStarted, AgentTaskCheckpointed, AgentTaskCompleted, AgentTaskFailed, AgentTaskExpired, AgentTaskWaitingForProvider, AgentAvailabilityChanged, AgentPermissionChanged, AgentMemoryUpdated, ExperienceRecordCreated, AIProviderAvailabilityChanged, AIProviderUsageLimited, AgentBudgetExhausted |
+| Research/lifecycle | HypothesisCreated, ExperimentStarted, ExperimentCompleted, StrategyCandidateCreated, StrategyPromoted, StrategyDegraded, StrategySuspended, StrategyRetired, ModelRegistered, ModelPromoted, ModelRolledBack, StrategyPromotionDenied, ModelPromotionDenied |
+| Platform | SystemIncidentOpened, SystemIncidentResolved, CertificationScopeChanged, CertificationInvalidated, SecretRotationRequired, ServiceHealthChanged, BackupVerified, RestoreDrillCompleted |
 
-## Signal events
+OrderSubmitted means a known submission observation, not necessarily acknowledgment/fill. ReconciliationCompleted carries pass/mismatch/insufficient status; name alone is not healthy evidence. MarketRegimeChanged is produced by a deterministic versioned detector; agent interpretation is a separate task result.
 
-- MathSignalProduced.v1
-- StrategySignalProduced.v1
-- MarketRegimeChanged.v1
+## Replay and compatibility
 
-## TradeIntent events
-
-- TradeIntentCreated.v1
-- TradeIntentExpired.v1
-- TradeIntentRiskApproved.v1
-- TradeIntentRiskDenied.v1
-- TradeIntentPolicyApproved.v1
-- TradeIntentPolicyDenied.v1
-- TradeIntentExecutionRequested.v1
-
-## Order events
-
-- OrderSubmissionStarted.v1
-- OrderSubmitted.v1
-- OrderAcknowledged.v1
-- OrderPartiallyFilled.v1
-- OrderFilled.v1
-- OrderCancelRequested.v1
-- OrderCancelled.v1
-- OrderRejected.v1
-- OrderExpired.v1
-- OrderStateUnknown.v1
-- OrderRecoveryStarted.v1
-- OrderRecovered.v1
-
-## Portfolio and ledger events
-
-- CapitalAllocationProposed.v1
-- CapitalAllocated.v1
-- CapitalAllocationReduced.v1
-- PositionOpened.v1
-- PositionIncreased.v1
-- PositionReduced.v1
-- PositionClosed.v1
-- LedgerEntryAppended.v1
-
-## Risk events
-
-- RiskWarningRaised.v1
-- RiskDecisionDenied.v1
-- DailyLossLimitReached.v1
-- DrawdownLimitReached.v1
-- ExposureLimitReached.v1
-- TradingBlocked.v1
-- TradingUnblocked.v1
-- GlobalKillActivated.v1
-- GlobalKillCleared.v1
-
-## Reconciliation events
-
-- ReconciliationStarted.v1
-- ReconciliationCompleted.v1
-- ReconciliationMismatchDetected.v1
-- ReconciliationCriticalMismatch.v1
-- ReconciliationRecovered.v1
-
-## Agent events
-
-- AgentTaskCreated.v1
-- AgentTaskStarted.v1
-- AgentTaskCompleted.v1
-- AgentTaskFailed.v1
-- AgentAvailabilityChanged.v1
-- AgentPermissionChanged.v1
-- AgentMemoryUpdated.v1
-- ExperienceRecordCreated.v1
-- AIProviderAvailabilityChanged.v1
-- AIProviderUsageLimited.v1
-
-## Research events
-
-- HypothesisCreated.v1
-- ExperimentStarted.v1
-- ExperimentCompleted.v1
-- StrategyCandidateCreated.v1
-- StrategyPromoted.v1
-- StrategyDegraded.v1
-- StrategySuspended.v1
-- StrategyRetired.v1
-- ModelRegistered.v1
-- ModelPromoted.v1
-- ModelRolledBack.v1
-- StrategyPromotionDenied.v1
-- ModelPromotionDenied.v1
-
-## Platform events
-
-- SystemIncidentOpened.v1
-- SystemIncidentResolved.v1
-- CertificationLevelChanged.v1
-- SecretRotationRequired.v1
-- ServiceHealthChanged.v1
-
-## Delivery semantics
-
-Consumers must assume at-least-once delivery unless a stronger guarantee is explicitly implemented.
-
-Handlers that mutate financial state must therefore be idempotent.
+Replay rebuilds state in no-send mode. Sending a recovered OrderSubmissionStarted event cannot resend an order. Consumers with irreversible side effects use explicit receipt/action identities and current authority checks. Record unknown event versions as errors/quarantine, never silently deserialize into permissive defaults. Test duplicate, reordered, missing and old-version events before certification.

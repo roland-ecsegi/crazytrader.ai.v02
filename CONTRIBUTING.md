@@ -9,3 +9,6 @@ TradeIntent, hard risk, OPA, execution, reconciliation, ledger, certification an
 In Autonomous Program Mode the gate review may be an independent adversarial Codex pass. Routine human approval is not required unless a true external blocker or binding decision exists.
 
 Behavioral changes update matching specs. Do not skip roadmap gates.
+
+
+Documentation checks are distinct from executable implementation evidence. Preserve historical audit provenance, map design fixes to pending test proof, and do not mark L1–L6 passed from prose. Use the current T000–T030 graph; no mandatory extra infrastructure or new permanent agents without a measured need.

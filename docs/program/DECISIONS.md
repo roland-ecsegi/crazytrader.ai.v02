@@ -19,3 +19,15 @@
 - Before v02-specific adaptations, all 38 baseline files matched the source snapshot by path and blob SHA.
 - Repository-local operational references were adapted to v02 without importing later Codex implementation work.
 - The baseline contradiction between “no real money before L6” and required L5 canary evidence is resolved by ADR-0006: general LIVE requires L6, while a tightly bounded owner-local L5 canary is the sole pre-L6 real-money exception.
+
+
+## 2026-10-04 — Independent audit remediation and owner requirements
+
+- Documentation-only work is authorized and does not launch the implementation Master Goal.
+- Preserve complete Enterprise Local as target, with two usable separately attributed modes and no profit guarantee.
+- ADR-0007: modular local deployment, PostgreSQL/outbox and local analytical artifacts; extra servers require evidence; one financial state/sender authority.
+- ADR-0008: eleven permanent event-driven agents, Loki as grounded user guide, bounded task queues and official owner-native Claude CLI subscription route; no token proxy/automatic paid fallback.
+- ADR-0009: atomic capital/authorization, balanced posting, explicit unknown-order/emergency behavior and scoped evidence.
+- Add two concrete unvalidated research baselines, full trial/causality/cost protocol and honest rejection outcomes.
+- Implement security, research and recovery early; separate engineering readiness, economic eligibility and full product acceptance.
+- Exact runtime versions, owner settings and passing results remain pending; no code, dependencies, credentials or live behavior changed.

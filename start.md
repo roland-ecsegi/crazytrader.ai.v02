@@ -1,59 +1,13 @@
-Codex
+# Launching implementation after documentation
 
-Use this repository as the source of truth:
+The 2026-10-04 documentation task does not itself launch implementation. When the owner explicitly starts development, use either Codex or Claude Code with this instruction:
 
-roland-ecsegi/crazytrader.ai.v02
+Work on repository `roland-ecsegi/crazytrader.ai.v02`, branch `codex/enterprise-local-autonomous`.
 
-Use branch:
-codex/enterprise-local-autonomous
+Read AGENTS.md, .agent/PLANS.md, current architecture/specs/accepted ADRs, roadmap/program files and the active ExecPlan. Execute `docs/roadmap/CODEX_MASTER_PROMPT.md` from `docs/program/STATUS.md`. Preserve concurrent work and do not repeat completed tasks.
 
-Read and execute:
-docs/roadmap/CODEX_MASTER_PROMPT.md
+Continue autonomously through eligible implementation tasks and genuine validation gates. Keep the two modes, eleven durable agents including Loki, official owner-local Claude subscription requirement, deterministic financial boundary and minimal local deployment. No automatic paid fallback or SaaS implementation.
 
-Start from:
-docs/program/STATUS.md
+Run tests/reviews, repair, update evidence and commit/push checkpoints. Routine engineering choices need no repeated approval. Owner-native login, secure local keys, actual live-capital activation and non-derivable binding product/cost choices remain external actions. Complete independent work before requesting them.
 
-Operate in AUTONOMOUS PROGRAM MODE.
-Do not repeat completed work.
-Do not stop for routine status updates or phase transitions.
-Continue autonomously through all roadmap phases until Enterprise Local / L6 LIVE CERTIFIED, or until a true external blocker requires my action.
-
-
-
-
-Claude code
-
-Work on repository:
-
-roland-ecsegi/crazytrader.ai.v02
-
-Use branch:
-codex/enterprise-local-autonomous
-
-Read completely before implementation:
-- AGENTS.md
-- .agent/PLANS.md
-- docs/architecture/*
-- docs/specs/*
-- docs/adr/*
-- docs/roadmap/AUTONOMOUS_ENTERPRISE_LOCAL_GOAL.md
-- docs/roadmap/IMPLEMENTATION_ROADMAP.md
-- docs/roadmap/CODEX_TASK_GRAPH.md
-- docs/roadmap/CODEX_RESUME_PROTOCOL.md
-- docs/program/*
-
-Then execute the Enterprise Local Master Goal autonomously from the current repository state.
-
-Start from docs/program/STATUS.md.
-Create and maintain ExecPlans.
-Implement, test, adversarially review, repair, update durable evidence, commit and push checkpoints, then continue automatically to the next eligible phase.
-
-Do not ask routine engineering questions or request approval for normal phase transitions.
-
-Only stop for a true external blocker such as owner authentication, local secret entry, Binance L5/L6 activation, local Claude authentication, or a genuinely non-derivable material decision.
-
-Preserve all financial trust-boundary, risk, security, certification and secret-handling rules.
-
-Do not implement Enterprise SaaS.
-
-Continue until Enterprise Local / L6 LIVE CERTIFIED or a true external blocker.
+Do not claim completion from documentation, mocks, accelerated observations or unvalidated backtests. L6 and complete Enterprise Local require actual scoped local evidence. Follow the development tool's supported quota/resume behavior; never attempt to bypass it.

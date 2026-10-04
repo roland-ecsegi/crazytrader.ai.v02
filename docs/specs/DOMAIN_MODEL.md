@@ -1,329 +1,56 @@
-# Domain Model V1
+# Domain model and record ownership
 
-## Design rules
+Status: DEFINED v1 design; executable schemas/migrations MISSING. This is a field/ownership map; specialized specs govern semantics. IDs are globally unique internally, UTC timestamps have declared precision, versions/hashes are immutable, and raw credentials never appear in domain records.
 
-- Globally unique IDs.
-- UTC timestamps.
-- Fixed-precision decimal values for all financial/accounting calculations.
-- Tenant-aware ownership fields where low-cost, even though Enterprise Local has one tenant.
-- Promoted strategy/model versions are immutable.
-- Ledger/audit history is append-only.
-- External credentials are referenced, never stored raw in domain records.
+## Common rules
 
-## Tenant
+owner_id/tenant_id are cheap future ownership seams, not implemented multi-tenant isolation. Monetary amounts, quantities, prices, fees and financial limits use canonical Decimal strings/units. Statistical features/estimators may use finite float64 internally with validated conversion at the financial boundary. Reject NaN/Inf and ambiguous units. Occurred/event time, received/available time and recorded time are distinct.
 
-Fields: tenant_id, name, status, created_at.
+## Product and configuration records
 
-Enterprise Local uses one tenant.
+| Entity | Required core fields / ownership |
+|---|---|
+| Tenant / Owner | tenant_id, owner_id, status, created_at; exactly one local owner; local auth still required |
+| ExchangeAccount | account_id, venue, environment, credential_ref, permission_snapshot, IP-restriction state, reconciliation status; secret lives only in local facility |
+| InstrumentVersion | instrument_id, symbol, base/quote, market_type, status, tick/step/min/max/filter sets, allowed capabilities, effective_at, metadata_hash |
+| Portfolio | portfolio_id, account_id, mode MATH/STRATEGY/RESERVE/SUSPENSE, reporting_asset, status, profile/version, revision |
+| CapitalAllocation | allocation_id, source/target portfolio, asset/amount, effective_at, reason, approved_by, cap/config reference, ledger_transaction_id |
+| RiskProfileVersion | id, LOW/MEDIUM/HIGH, explicit numeric parameters/units, absolute-limit refs, artifact hash, lifecycle |
+| SystemConfigVersion | immutable config hash, scope/environment, effective_at, actor, approval/audit refs; missing live limits block activation |
 
-## Owner
+## Agent and research records
 
-Fields: owner_id, tenant_id, identity_metadata, status, created_at.
+| Entity | Required core fields |
+|---|---|
+| Agent | agent_id, stable_name, role_version, status, provider_config_id, permission_profile_id, skill allowlist, memory_policy_id, created/updated_at |
+| AgentSkillVersion | skill/version, input/output schemas, implementation hash, allowed agents/permissions, side-effect class, resource limits, idempotency and evaluation refs |
+| AgentTask / SkillInvocation | Defined in AGENT_RUNTIME; task/lease/checkpoint/attempt identity and durable effect receipt |
+| AgentMemoryRecord | memory_id, agent_id, type, content_ref/hash, source_refs, source version/time, validation status, quality, retention class, supersedes_id |
+| AIProviderConfig | id, transport/auth class, model allowlist, timeout/retry/fallback/budget policy, local auth reference/status; no raw token |
+| Strategy / Model | stable id/family and immutable version id, code/artifact/config/data/feature/label hashes, lifecycle, validation refs |
+| Experiment | id, hypothesis, registered protocol, dataset/splits, feature/model/profile/cost versions, parameters, all trial IDs, result, uncertainty, reproducibility hash |
+| DecisionObservation | id, candidate/agent/mode, decision_time, available input refs, signal/abstain/reject/accept status, reason, horizon, intended size and policy scope |
+| OutcomeObservation | observation_id, matured_at, actual/counterfactual flag, realized data/fill refs, uncertainty/limitations; never mix hypothetical with ledger P&L |
+| ExperienceRecord | id, agent/mode/candidate versions, decision/outcome refs, market/regime/risk/context, execution quality, anomaly refs, created_at |
 
-## Agent
+## Financial and operational records
 
-Fields:
-- agent_id
-- tenant_id
-- agent_type
-- stable_name
-- status
-- provider_config_id
-- permission_profile_id
-- memory_policy_id
-- created_at
-- updated_at
+| Entity | Required core fields / canonical spec |
+|---|---|
+| TradeIntent | Immutable typed proposal in TRADE_INTENT; no authority by itself |
+| RiskDecision | id, intent hash, independently recomputed risk_effect, allow/deny, reason codes, exposure/loss/data/reconciliation evidence, rules/config versions, state revisions, expiry |
+| PolicyDecision | id, actor/action/resource/environment, risk decision hash, certificate scope, input/bundle hashes, allow/deny/reasons, expiry |
+| CapitalReservation / SubmissionAuthorization | State-bound atomic hold and single-use approval in FINANCIAL_AUTHORIZATION |
+| ExecutionRequest / OrderAction / NetworkAttempt | Distinct plan/logical action/transport identities in FINANCIAL_AUTHORIZATION; one sender and no ambiguous retry |
+| Order | internal/account/venue/client IDs, originating intent/request, symbol/side/type/TIF, requested/fill quantity, price, lifecycle, venue/fill watermarks, revision, timestamps |
+| Fill | account+venue+symbol-scoped fill identity, order, quantity/price, fee amount/asset, event/receive/recorded timestamps and raw evidence hash |
+| Position | Attributed Spot inventory per portfolio/instrument, available/held quantity, cost basis, valuation/P&L refs and revision; derived from journal/facts |
+| LedgerTransaction / Posting | Per-asset balanced immutable postings and compensating corrections in DATA_AND_LEDGER |
+| ReconciliationRun | scope, watermarks/time window, queries/evidence, discrepancies, unresolved items, result and next action |
+| Incident | id, severity/category, affected scope, trigger, state, observed_at, owner/action refs and resolution evidence |
+| AuditEvent | id, actor/action/resource, trace, source and evidence hash, occurred/recorded time, redacted payload |
+| CertificationRecord | Scoped engineering level, economic eligibility, product acceptance, evidence/config hashes, validity/invalidation in TESTING_AND_CERTIFICATION |
+| OwnerActivation | authenticated actor, exact scope/caps/config/certificate refs, environment, created/expiry, revocation/latch refs; separate from certification |
+| ProgramCheckpoint | development branch/containing commit, current task, next action, blocker/usage state and verification refs; never a trading authority |
 
-## AgentSkill
-
-Fields:
-- skill_id
-- version
-- name
-- input_schema
-- output_schema
-- required_permissions
-- implementation_ref
-- resource_limits
-- audit_category
-- status
-
-## AgentMemoryRecord
-
-Fields:
-- memory_id
-- agent_id
-- memory_type
-- content_ref
-- source_refs/provenance
-- confidence_or_quality
-- retention_class
-- created_at
-- supersedes_id
-- validation_status
-
-## ExperienceRecord
-
-Fields:
-- experience_id
-- tenant_id
-- agent_id
-- portfolio_id
-- strategy_version_id
-- model_version_ids
-- market_state_ref
-- regime_ref
-- entry_reason_ref
-- exit_reason_ref
-- risk_state_ref
-- execution_quality_ref
-- outcome_metrics
-- anomaly_refs
-- created_at
-
-## AIProviderConfig
-
-Fields:
-- provider_config_id
-- tenant_id
-- provider_type
-- model_policy
-- effort_or_reasoning_policy
-- timeout_policy
-- fallback_policy
-- credential_ref
-- status
-
-credential_ref points to owner-local secret/auth integration where needed; never raw credentials.
-
-## Portfolio
-
-Fields:
-- portfolio_id
-- tenant_id
-- name
-- mode: MATH | STRATEGY | RESERVE
-- risk_profile_version_id where applicable
-- status
-- base_currency
-- created_at
-
-## CapitalAllocation
-
-Fields:
-- allocation_id
-- portfolio_id
-- source
-- amount
-- effective_at
-- reason
-- approved_by
-- hard_cap_ref
-
-## RiskProfileVersion
-
-Fields:
-- risk_profile_version_id
-- profile_name: LOW | MEDIUM | HIGH
-- immutable_parameters
-- owner_absolute_limit_refs
-- lifecycle_status
-- created_at
-
-## ExchangeAccount
-
-Fields:
-- exchange_account_id
-- tenant_id
-- exchange
-- environment
-- secret_ref
-- permission_snapshot
-- IP_allowlist_status
-- status
-
-Raw API secret never lives here.
-
-## Instrument
-
-Fields:
-- instrument_id
-- venue
-- symbol
-- base_asset
-- quote_asset
-- market_type
-- quantity_precision
-- price_precision
-- min_quantity
-- min_notional
-- status
-- venue_metadata_version
-
-## Strategy / StrategyVersion
-
-Strategy: strategy_id, name, strategy_family, status.
-
-StrategyVersion:
-- strategy_version_id
-- strategy_id
-- semantic_version
-- artifact_ref
-- config_hash
-- lifecycle_stage
-- validation_evidence_refs
-- created_at
-- immutable_after_promotion
-
-## Model / ModelVersion
-
-Model: model_id, name, model_family.
-
-ModelVersion:
-- model_version_id
-- model_id
-- artifact_ref
-- dataset_version
-- feature_set_version
-- training_config_hash
-- metrics
-- lifecycle_stage
-- validation_evidence_refs
-- created_at
-
-## Experiment
-
-Fields:
-- experiment_id
-- hypothesis_id
-- dataset_ref
-- feature_set_ref
-- config
-- artifact_refs
-- metrics
-- result
-- reproducibility_hash
-- created_at
-
-## TradeIntent
-
-Defined in TRADE_INTENT.md.
-
-## RiskDecision
-
-Fields:
-- risk_decision_id
-- intent_id
-- decision
-- risk_effect
-- reason_codes
-- calculated_exposure
-- drawdown_state
-- market_health
-- reconciliation_health
-- ruleset_version
-- created_at
-
-## PolicyDecision
-
-Fields:
-- policy_decision_id
-- intent_id
-- actor_id
-- decision
-- reason_codes
-- policy_bundle_version
-- created_at
-
-## Order
-
-Fields:
-- order_id
-- intent_id
-- execution_request_id
-- venue_order_id
-- client_order_id
-- state
-- symbol
-- side
-- order_type
-- requested_quantity
-- filled_quantity
-- limit_price
-- average_fill_price
-- created_at
-- updated_at
-
-## Fill
-
-Fields:
-- fill_id
-- order_id
-- venue_fill_id
-- quantity
-- price
-- fee_amount
-- fee_asset
-- timestamp
-
-## Position
-
-For Spot V1, represents platform-attributed inventory/exposure.
-
-Fields:
-- position_id
-- portfolio_id
-- instrument_id
-- quantity
-- cost_basis
-- unrealized_pnl
-- realized_pnl
-- updated_at
-
-## LedgerTransaction / LedgerPosting
-
-LedgerTransaction:
-- transaction_id
-- tenant_id
-- portfolio_id
-- transaction_type
-- reason
-- related_order_id/fill_id
-- correction_of_id
-- timestamp
-
-LedgerPosting:
-- posting_id
-- transaction_id
-- account
-- asset
-- amount
-- valuation_ref where required
-
-Append-only. Corrections are compensating transactions.
-
-## Incident
-
-incident_id, severity, category, status, trigger_event_id, summary, opened_at, closed_at.
-
-## AuditEvent
-
-audit_event_id, actor_id, action, resource_type, resource_id, trace_id, payload_ref, timestamp.
-
-## CertificationState
-
-tenant_id, current_level, achieved_at, evidence_refs, blockers, last_reviewed_at.
-
-## ProgramCheckpoint
-
-Development/control-plane only:
-- program_id
-- working_branch
-- last_durable_commit
-- current_phase
-- next_action
-- blocker_state
-- usage_state
-- updated_at
-
-ProgramCheckpoint never becomes a trading authority.
+Materialized views are rebuildable; immutable facts and journal are not rewritten to match a desired result. Implement schema compatibility and migration/replay tests before external consumers depend on v1.

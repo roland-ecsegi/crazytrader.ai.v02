@@ -1,38 +1,13 @@
-# Phase 0 — Repository Bootstrap
+# P0 bootstrap and compatibility evidence
 
-## Status
-ACTIVE
+Status: PLANNED; documentation remediation is complete separately. Read STATUS and current ExecPlan before starting implementation. No live exchange credentials or live-order submission in cloud/development.
 
-## Objective
+Implement T001–T006 from CODEX_TASK_GRAPH. Choose justified Python financial/research modules and TypeScript custom UI; use mature native dependencies before custom Rust. Create only directories with an immediate owner/implementation need; the service list is logical ownership, not mandatory empty microservices.
 
-Create the reproducible monorepo/toolchain and freeze initial typed domain/contracts/events. No live Binance credentials or live order submission in this phase.
+Deliver executable TradeIntent, RiskDecision, PolicyDecision, Reservation, SubmissionAuthorization, OrderAction/Attempt, Fill, ledger, AgentTask, certification and event schemas; formatting/type checks/unit/property/contract framework, CI, secret scan and reproducible setup. Include invalid-unit/NaN/malformed-state fixtures. Add minimal storage/engine/provider prototypes to resolve high-cost assumptions early.
 
-## Deliverables
+Run Nautilus/SDK ownership/license spike, PostgreSQL atomicity/replay fixtures, independent formula/causal-label fixtures and the Claude adapter spike. Owner-native Claude login is a local external step; cloud fixtures must not be mislabeled as real subscription evidence.
 
-Create planned `apps/`, `services/` (including `notification`), `packages/`, `agents/`, `policies/opa/`, `infra/`, `tests/`, and `docs/plans/` structure.
+Acceptance: exact build/check commands run; schemas and independent invariants pass; dependencies/licenses and selected state ownership recorded; no unsafe alternative sender; quantitative trial protocol frozen; provider uncertainty explicit; next P1 work can proceed without inventing semantics. No L1/L2 readiness yet.
 
-Toolchain must be justified in ExecPlan. Preference: Python for trading/research/agent services, TypeScript for custom web UI, reuse Rust indirectly through mature dependencies before custom Rust.
-
-Implement typed foundations for TradeIntent, RiskDecision, PolicyDecision, Order/OrderState, Fill, Portfolio, StrategyVersion, ModelVersion, AuditEvent, CertificationState and common event envelope.
-
-Add formatting, linting, type checking, unit/contract tests, CI, secret scan and reproducible local setup.
-
-## Acceptance
-
-1. Structure exists.
-2. Docs linked.
-3. Contracts type-check.
-4. Unit/contract tests pass.
-5. CI runs equivalent checks.
-6. Secret scan clean.
-7. No live-order path exists.
-8. Architecture rules referenced.
-9. Phase 0.5 / Phase 1 can proceed without guessing core semantics.
-
-## Autonomous transition
-
-Create/update `docs/plans/phase-0-repository-bootstrap.md`, implement and validate.
-
-**In Autonomous Program Mode, do not stop at the Phase 0 gate.** Record evidence, commit/push, then automatically proceed to Phase 0.5 and next eligible phase.
-
-Outside Autonomous Program Mode, return the Phase 0 result normally.
+In an explicitly launched Autonomous Program, update the ExecPlan, VALIDATION_LOG and STATUS, commit/push and advance to eligible work after true gate pass. A documentation-only request ends with its documentation deliverable and does not launch this program.

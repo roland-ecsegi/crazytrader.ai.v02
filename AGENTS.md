@@ -2,14 +2,14 @@
 
 ## Mission
 
-Build CrazyTrader.ai V0.1 to **Enterprise Local / L6 LIVE CERTIFIED** as an autonomous, agent-controlled crypto trading platform. Enterprise SaaS is a separate future phase and is out of scope.
+Build CrazyTrader.ai v02 to **Enterprise Local / L6 LIVE CERTIFIED** as an autonomous, agent-controlled crypto trading platform. Enterprise SaaS is a separate future phase and is out of scope.
 
 ## Binding product invariants
 
 1. No LLM, agent, prompt, hook, UI component, research process, or Codex Cloud task may directly submit an order to Binance.
-2. Every financial proposal becomes a typed, immutable `TradeIntent`.
+2. Every economic trading proposal becomes a typed, immutable `TradeIntent`; cancellation/control commands reference existing actions and cannot create exposure.
 3. Every risk-increasing TradeIntent must pass schema, certification, portfolio, deterministic Hard Risk, and OPA authorization before execution.
-4. Risk-reducing emergency actions must have a dedicated deterministic path so degraded state never traps capital merely because new risk is blocked.
+4. Risk-reducing emergency actions must have a dedicated deterministic, pre-authorized path under the tested RISK_SECURITY dependency matrix. Preserve safe reduction when feasible; never promise execution through unavailable venue, credentials, trustworthy state or durable journal.
 5. Binance live credentials must never be available to Codex Cloud, agent prompts/memory, frontend, analytics, fixtures, source control, or ordinary logs.
 6. Open-position protection, reconciliation, duplicate-order prevention, ledger integrity, and kill switches must not depend on Claude or any LLM.
 7. Research output may not self-promote into production.
@@ -54,7 +54,15 @@ Before reporting a blocker, complete independent work, push a durable checkpoint
 
 Follow `docs/roadmap/CODEX_RESUME_PROTOCOL.md`. Auto-continue while Goal is active and within budget. A budget-limited Goal is paused, not completed. If a platform Resume action is required after reset, resume the same Goal/thread and rehydrate from repository state.
 
+## Documentation and implementation scope
+
+Documentation-only tasks do not launch the Master Goal. Current documentation completion does not imply executable schemas, agents, tests or readiness above L0. PRODUCT_REQUIREMENTS, FINANCIAL_AUTHORIZATION, QUANTITATIVE_METHODS, AGENT_RUNTIME, LOKI and CLAUDE_SUBSCRIPTION_SPIKE define the refined acceptance contracts. ADR-0007 through ADR-0009 supersede conflicting older deployment/availability shorthand.
+
+Exactly eleven permanent agent identities are planned. Use the official owner-local Claude CLI route for required subscription acceptance; no token proxy, quota bypass or automatic paid fallback. Local mathematics/risk do not invoke LLMs. Runtime provider terms/capabilities require evidence.
+
 ## Ownership boundaries
+
+These are logical ownership namespaces, not mandatory separate services/processes; see ADR-0007. Keep AI/research isolated from live credentials. Select one order engine/sender, and preserve atomic financial transactions.
 
 - `apps/web`: custom UI.
 - `apps/control-api`: owner API.
@@ -88,10 +96,11 @@ Never commit/log secrets. Codex Cloud never receives live Binance secrets or own
 
 ## Coding principles
 
-Contract-first; versioned schemas/events; fixed-precision decimals; explicit state machines; append-only ledger with compensating corrections; immutable promoted artifacts; idempotent financial handlers; observable/reproducible services; fail closed for new risk when safety state unknown; preserve safe risk reduction/cancellation.
+Contract-first; versioned schemas/events; fixed-precision decimals for money/venue boundaries; validated finite statistical floats inside quantitative models; explicit state machines; append-only ledger with compensating corrections; immutable promoted artifacts; idempotent financial handlers; observable/reproducible services; fail closed for new risk when safety state unknown; preserve safe risk reduction/cancellation.
 
 ## Definition of Done
 
 A task/phase is complete only when acceptance criteria, tests and gate review pass; docs match behavior; no critical mock/TODO is presented as complete; failure/recovery is defined; privileges are bounded; evidence is durable; certification status is truthful.
 
 The Master Goal is **not complete** while L5/L6 is merely implemented but not executed with required owner-controlled local evidence. Missing live credentials/activation means BLOCKED, not COMPLETE.
+

@@ -1,78 +1,48 @@
 # Architecture V1 — Enterprise Local
 
-## Target
+Revision: 2026-10-04 documentation remediation. Status: specification baseline; executable product MISSING, L0. PRODUCT_REQUIREMENTS is the product acceptance contract. Accepted ADRs and AGENTS.md invariants govern conflicts.
 
-CrazyTrader.ai V0.1 is a complete private single-owner/single-tenant product first, capable of Binance Spot real-money operation after L6 certification without the future SaaS phase.
+## Target and invariant boundary
 
-Future Enterprise SaaS adds customer multi-tenancy, subscriptions/billing, commercial API, paid API-first AI routing at scale, stronger tenant/compliance security and HA as justified.
+A complete private single-owner Binance Spot application with two independently controlled/attributed modes, eleven permanent event-driven agents including Loki, supported owner-local Claude subscription routing, custom UI, rigorous research and deterministic financial safety. SaaS is not needed for the owner to trade after validation. No guaranteed return or forced trades.
 
-## Product invariants
+Math computes live quantitative evidence; versioned strategies generate structured proposals. Agents may research/explain/propose. Schema/certification, Hard Risk, OPA, atomic reservations, sole execution authority, reconciliation and balanced ledger enforce financial consequences. Neither UI, model output, owner manual action nor research bypasses that boundary.
 
-- Math Mode and Strategy Mode are first-class.
-- Math Mode live decisions are quantitative/statistical and cost-aware.
-- Strategy Mode uses validated/versioned strategies with Low/Medium/High profiles.
-- Mode capital, P&L, drawdown and attribution are independently observable.
-- No fixed return guarantee or forced minimum trade count.
-- Permanent agents are persistent software entities, not temporary labels.
-- Open-source solves infrastructure; custom UI/product behavior and agent governance remain ours.
-- Binance withdrawal remains disabled.
-- Codex Cloud builds the product but never possesses live secrets.
+## Four logical planes
 
-## Four planes
+| Plane | Responsibilities | Authority |
+|---|---|---|
+| Trading | Data/features, Math/Strategy, portfolio, risk, policy, execution, reconciliation, ledger | Deterministic, scoped financial authority |
+| Agent control | Eleven identities, durable tasks, skills, memory, AI routing, Loki | Bounded advisory/research/user-workflow proposals |
+| Research | Versioned datasets, candidate methods, all experiments, validation, learning | No live credentials or self-promotion |
+| Platform | Authenticated UI/API, storage/audit, configuration, local secrets, health, backup/recovery | Owner workflows and enforced infrastructure controls |
 
-**Trading**: market data, features, Math/Strategy, portfolio, TradeIntent, hard risk, OPA, execution, reconciliation, ledger.
+## Data and control flow
 
-**Agent Control**: permanent identities, runtime, skills/tools, memory, orchestration, AI routing.
+Market ingestion validates timestamps/quality -> shared pure features -> immutable model/strategy -> TradeIntent. Account/portfolio serialization evaluates current risk and OPA, reserves capital and persists a single-use state-bound authorization/outbox. The fenced sole sender rechecks current bounds and persists SUBMITTING before exchange I/O. Venue observations drive idempotent fill posting, order state, holds and reconciliation. Ambiguous submissions remain UNKNOWN until resolved; event replay never resends financial actions.
 
-**Research**: data, hypotheses, experiments, features/models/strategies, backtests, optimization, walk-forward and candidate lifecycle.
+In parallel, deterministic monitors qualify domain events. The task scheduler deduplicates/coalesces and admits bounded agent work; AI Gateway invokes the approved CLI only when needed. Agent results become evidence, hypotheses or typed owner-command proposals. Loki retrieves permitted actual state and versioned knowledge. None of this is on the critical path for protection, reconciliation or Kill.
 
-**Platform**: custom UI/control API, storage/events/secrets/audit/observability/backups/recovery/deployment.
+## Minimal local topology
 
-## Core flow
+Preserve logical ownership in SERVICE_CONTRACTS but deploy a modular financial core, PostgreSQL, local OPA evaluation, UI/API, isolated research worker and isolated agent/Claude processes. Keep exchange credentials in the execution process boundary only. Safe modules may share transactions/processes; research/AI cannot run privileged code alongside execution.
 
-    Owner / Custom UI -> Control API
-             |-> Agent Runtime
-             |-> Trading Control
-             |-> Research
-                    |
-                 TradeIntent
-                    |
-             Hard Risk Engine
-                    |
-                   OPA
-                    |
-              Execution Engine
-                    |
-                  Binance
-                    |
-              Reconciliation
-                    |
-                  Ledger
+PostgreSQL owns operational state, outbox/inbox and task leases. Versioned local Parquet/artifact storage plus DuckDB handles initial research. NATS, ClickHouse, MLflow server and object-store server require measured justification. A vetted OS secret facility may satisfy local secret isolation; OpenBao is optional with tested recovery. Instrument first, then choose monitoring packaging that fits the host. No Kubernetes/Kafka/service mesh/multi-region baseline.
 
-## Risk-direction invariant
+## Execution foundation
 
-Degraded state may deny **new/increased risk** while preserving authorized **risk reduction, cancellation and emergency flattening**. A failed dependency must not trap capital.
+NautilusTrader remains the primary reuse candidate, subject to early compatibility/license spike. Choose one order-state engine/sender and map its facts to the independent accounting ledger. Official Binance SDK is a reference/limited adapter candidate, never an alternate agent-accessible sender. Reject integration that bypasses outer authority or creates conflicting state ownership.
 
-## Financial trust boundary
+## Quantitative and adaptation architecture
 
-Above: agents, Claude/AI, ML, research, strategy/portfolio proposals.
-Below: schema/certification, hard risk, OPA, execution, reconciliation, ledger, kill switches.
-Anything above may be wrong.
+Original modes were not complete algorithms. QUANTITATIVE_METHODS defines MATH-RIDGE-01 and STRATEGY-DONCHIAN-01 as unvalidated baselines. Features, labels, decision/sizing/exit rules, costs and trial protocol are explicit. Same logical pipeline runs through backtest/paper/live with adapter/time/cost differences exposed. Learning observes abstentions/rejections as well as executed trades; new artifacts require new evidence. Initial live artifacts do not self-modify.
 
-## Baseline services/platform
+## Degraded and operational behavior
 
-control-api, agent-runtime, ai-gateway, market-data, math-engine, strategy-engine, portfolio-engine, risk-engine, OPA, execution, reconciliation, ledger, research, audit, notification; PostgreSQL, ClickHouse, NATS JetStream, OpenBao, MLflow, object storage, OpenTelemetry, Prometheus.
+Block new risk on unknown safety state. Preserve only verified pre-authorized cancellation/reduction capabilities under the RISK_SECURITY dependency matrix. Exchange/network/power failure can make flattening impossible; never promise otherwise. Single-host operation requires tested recovery, single sender, measured RPO/RTO and honest residual availability limits.
 
-## Reuse
+## Certification and future seams
 
-Follow `OPEN_SOURCE_ADOPTION.md`. NautilusTrader is the primary execution/simulation candidate subject to an early spike. Binance official SDK is venue-native reference/integration. Hummingbot/Condor/MCP are selective reference sources. Quant/ML libraries stay in research and cannot become direct live authorities.
+L0–L6 is scoped to build/artifacts/config/venue/account/order capabilities and supporting evidence. Candidate economic eligibility and complete product acceptance are separate. L5 bounded owner-local canary is the sole pre-L6 real-risk exception; L6 plus explicit owner activation grants only its certified scope.
 
-## AI runtime
-
-Permanent agents are provider-independent. Enterprise Local should support Claude CLI/`claude -p`, Claude Agent SDK where supported, Claude API and future adapters behind AI Gateway. Local subscription auth stays owner-local and never enters Codex Cloud.
-
-## Deployment
-
-Owner-controlled Linux/private host with containers/Compose or equivalent. Internal DB/OPA/OpenBao endpoints are not directly exposed to WAN. Kubernetes is deferred to SaaS.
-
-Schemas may carry tenant/owner IDs now; that is not a claim of current multi-tenant isolation.
+Cheap seams now: owner/account IDs, provider/venue interfaces, immutable artifacts, versioned contracts, module ownership and usage metadata. Future SaaS adds real tenancy/identity/billing/compliance/global operations only when justified; these absences do not reduce current local completeness.

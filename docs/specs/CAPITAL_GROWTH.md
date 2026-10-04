@@ -1,22 +1,11 @@
-# Capital Growth Engine V1
+# Capital allocation and controlled growth
 
-## Purpose
+Status: DEFINED target; no allocation optimizer or profitable strategy demonstrated. The purpose is controlled allocation, not forced compounding.
 
-Allocate owner-provided capital across Math Mode, Strategy Mode, strategies and reserve without allowing a strategy/agent to unilaterally increase its own risk budget.
+Owner supplies absolute capital caps, per-mode budgets and explicit reserve. Initial implementation uses fixed capped allocations and deterministic reduction/freeze rules; a sophisticated optimizer is not required to reach a usable local product. Portfolio Agent proposes changes; Hard Risk and ledger enforce them independently.
 
-Inputs include owner absolute cap, per-mode budget, balances/exposure, realized/unrealized P&L, drawdown, lifecycle stage, performance quality/sample size, correlations, liquidity, volatility/regime, risk profile and certification.
+Include realized/unrealized P&L, fees, cash flows, holds/unknown orders, liquidity, concentration, correlated exposure, drawdown, operational health, artifact eligibility and effective sample size. Sums of allocations plus reserve cannot exceed available authorized capital. Internal transfer is not a return.
 
-Outputs are allocation proposals or deterministic allocations within pre-authorized limits.
+Capital can increase only within owner-preauthorized limits after stage-appropriate forward evidence and after the previous step's observation criteria pass. Define step amount, maximum cumulative allocation, observation interval/sample rule and automatic stop/rollback before canary/live activation. Expanding account, instrument, profile or execution scope requires certification review. Degradation can freeze/reduce allocation immediately under deterministic policy; restoration requires evidence and applicable owner acknowledgment.
 
-Rules:
-- owner hard cap always wins;
-- research performance alone cannot unlock large live capital;
-- growth requires stage-appropriate evidence;
-- loss/degradation can reduce/freeze allocation automatically;
-- Math and Strategy remain separately attributable;
-- reserve capital is explicit;
-- no martingale-style loss chasing;
-- Kelly/fractional-Kelly or similar methods require validation/caps before production;
-- High risk cannot exceed absolute survival/drawdown constraints.
-
-Canary/live increases are stepwise, reversible and owner-capped. Exact amounts are configuration, not promised-return logic.
+No martingale, loss chasing, minimum trade count, fixed monthly income or assumed revenue funding timetable. Kelly/fractional Kelly, dynamic covariance optimization and learned allocation are optional later research requiring estimator uncertainty, leverage prohibition, stress tests and caps. Initial production correctness must not depend on them.

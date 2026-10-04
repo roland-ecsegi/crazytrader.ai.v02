@@ -1,21 +1,25 @@
-# Trading Modes V1
+# Trading modes
 
-Shared objective: maximize sustainable risk-adjusted compounded return after fees, spread, slippage, liquidity and risk constraints. No guaranteed monthly return and no forced trade count.
-
-Each mode has independent capital budget, P&L, drawdown, attribution, start/pause/stop state, Auto Trading ON/OFF and audit trail.
+Status: DEFINED product behavior; no implemented or validated strategies yet. PRODUCT_REQUIREMENTS governs acceptance; QUANTITATIVE_METHODS defines the first two unvalidated research candidates.
 
 ## Math Mode
 
-market data -> validated features -> quantitative/statistical model -> probability/return distribution -> costs/liquidity -> expected net edge -> risk-aware sizing -> TradeIntent.
+Point-in-time validated data -> versioned features -> frozen quantitative model -> gross return estimate -> execution-size-aware cost estimate -> net edge/uncertainty evidence -> deterministic candidate decision -> capped sizing -> TradeIntent -> independent Hard Risk/OPA/reservation -> execution -> reconciliation/ledger.
 
-LLMs may research and explain. Free-form LLM judgment cannot replace authoritative live mathematical edge computation. Zero trades is valid.
+MATH-RIDGE-01 is the initial research baseline. It does not yet establish predictive edge. LLMs may propose hypotheses, interpret evidence and explain; they never calculate authoritative live edge by improvisation. No eligible signal is a normal result.
 
 ## Strategy Mode
 
-market state -> regime detector -> eligible validated strategy versions -> scoring/evidence -> portfolio context -> Low/Medium/High profile -> TradeIntent.
+Point-in-time market state -> deterministic regime/entry predicates -> eligible immutable strategy/profile -> declared exit/sizing rules -> TradeIntent -> same financial boundary. STRATEGY-DONCHIAN-01 is the first research baseline. A strategy library may expand after evidence; no other trading algorithms are implied as implemented.
 
-Low: higher selectivity/smaller sizing. Medium: balanced. High: more aggressive within absolute owner/system survival limits; it is not permission to bypass hard risk.
+LOW/MEDIUM/HIGH are versioned numeric limits/selectivity settings, not verbal confidence. Risk/profile semantics live in RISK_SECURITY. High never overrides absolute caps, data quality or certification.
 
-Math evidence may feed Strategy Mode, but capital/P&L remain separately measurable.
+## Independent control, shared account
 
-Owner can allocate amount `n`, select Strategy risk profile, start/pause/stop Auto Trading, set hard caps, choose agent AI provider/model and trigger Global Kill. Owner manual trades still pass risk/policy.
+Each mode has its own allocation, realized/unrealized P&L, costs, cash-flow-adjusted return/drawdown, inventory ownership, audit and Auto Trading toggle. Both share account-level reservations, venue limits and risk caps. Cross-mode transfers are explicit balanced ledger operations.
+
+Start enables only certified eligible opportunities within preauthorized settings. Pause/Auto Trading OFF prevents new exposure but maintains deterministic order/position protection, accounting and reconciliation. Stop has a declared cancel/hold or authorized flatten policy; it cannot silently abandon positions. Global Kill applies across both modes without Claude.
+
+Math evidence may inform strategy research, but no duplicate economic position is created by routing the same candidate through both modes unnoticed. Attribute every proposal/fill to one origin and aggregate correlated exposure. Owner manual trades also pass risk/policy and have explicit accounting ownership.
+
+Financial correctness is necessary but does not prove economic viability. Neither mode is required to trade when its candidate has no defensible net edge.

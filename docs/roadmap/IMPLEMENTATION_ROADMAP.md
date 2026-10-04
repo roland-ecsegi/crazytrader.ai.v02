@@ -1,114 +1,43 @@
-# Implementation Roadmap V1
+# Evidence-gated Enterprise Local implementation roadmap
 
-## Goal
+Revision 2026-10-04. Current task completed only documentation remediation; application remains L0. A future explicit implementation launch follows CODEX_MASTER_PROMPT. Requirements live in PRODUCT_REQUIREMENTS; detailed dependencies in CODEX_TASK_GRAPH. No phase is passed by existing prose.
 
-Reach Enterprise Local / L6 LIVE CERTIFIED through evidence-gated autonomous phases.
+## P0 — Resolve architecture, mathematics and safety foundations
 
-## Phase 0 — Repository, toolchain and contracts
+Tasks T001–T006 after T000 documentation checkpoint. Bootstrap reproducible Python/core and TypeScript/UI toolchains only as justified; executable versioned contracts and CI, secret scan and isolated environments. Implement independent math fixtures and preregister both baseline experiments. Run Nautilus/official SDK ownership/license spike, PostgreSQL transaction/outbox/ledger prototype and early Claude subscription adapter spike. Cloud mocks can proceed while owner-local native login is pending.
 
-Deliver:
-- monorepo/toolchain;
-- typed domain/contracts/events;
-- CI, formatting, linting, type checks;
-- unit/contract test framework;
-- secret scan;
-- reproducible local developer setup.
+Exit: selected single order authority; executable money/state contracts and independent fixtures; accepted dependency versions/licenses; no ambiguity in capital reservation/retry/emergency scope; local provider requirement either demonstrated or explicitly blocked. No live credentials/order route in cloud. Documentation defines semantics but does not replace these prototypes/tests.
 
-No live exchange path.
+## P1 — Correct historical research and exchange simulation
 
-## Phase 0.5 — Open-source compatibility/license spikes
+Depends on relevant P0 contracts/spikes. Tasks T007–T015: point-in-time data/manifests, actual balanced ledger/holds, deterministic risk and OPA, selected engine adapter/fake venue, reconciliation, shared feature/signal code, candidate research, chronological/robustness tests and L1/L2 gates. Instrument and build security/recovery tests as components appear. Build minimal UI/control/health views early enough to exercise the real workflow.
 
-Before reinventing infrastructure:
-- evaluate/pin NautilusTrader execution/simulation fit;
-- validate Binance official SDK/reference behavior;
-- verify OPA/OpenBao/NATS/MLflow/PostgreSQL/ClickHouse/object-store integration approach;
-- record versions/licenses/security/replacement boundaries;
-- record why any approved candidate is rejected.
+Exit: reproducible datasets/trials, no leakage fixture failures, realistic cost/latency limitations explicit; all simulation money invariants pass; research can accept/reject candidates honestly. Both unvalidated algorithms are research inputs, not mandatory winners.
 
-## Phase 1 — Platform backbone
+## P2 — Usable paper and shadow application
 
-PostgreSQL, NATS JetStream, audit service, notification service, control API, service config/identity, health model and baseline telemetry.
+Depends on L1/L2 and relevant provider/UI foundations. Tasks T016–T023: real-time feeds/paper adapter, durable eleven-agent runtime/skills, Loki retrieval, controlled learning from all observations, complete UI journeys, local deployment/backups/alerts and real elapsed paper/shadow evidence. Claude integration is scoped to actual owner plan/model/config; quota outages degrade advisory tasks visibly.
 
-## Phase 2 — Market/data platform
+Exit: L3/L4 measured gates, real agent skills/task recovery and Loki evaluations, owner-local subscription evidence for requested AI acceptance, no critical open safety findings. Paper/shadow observations do not validate actual fills or future profitability.
 
-Binance test/sandbox market-data adapter, normalized events, freshness/gap detection, ClickHouse, object storage and historical ingestion.
+## P3 — Controlled real-capital trading
 
-## Phase 3 — Ledger/portfolio primitives
+Tasks T024–T026 after all applicable engineering, economic and operations gates. Owner alone enters withdrawal-disabled keys locally, declares small canary capital/stop/ramp policy and explicitly activates L5. Run real canary under its separate certificate; reconcile actual fees/fills/slippage and investigate deviations. No forced orders to meet a timetable.
 
-Append-only transaction/posting ledger, reservations, allocations, decimal invariants, portfolio attribution and reconciliation-ready state.
+Exit: actual scoped L5 evidence, no unresolved BLOCKER/CRITICAL and passed L6 criteria; explicit owner activation for general LIVE within certified scope. Missing keys, owner action, eligible candidate or sufficient market evidence produces the specific blocker, not fabricated completion.
 
-## Phase 4 — Hard Risk + OPA
+## P4 — Mature Enterprise Local acceptance
 
-Risk-direction classification, deterministic limits, Low/Medium/High constraints, kill hierarchy, degraded-mode risk-reduction path, OPA policies and negative-path tests.
+Tasks T027–T030 consolidate sustained operations, upgrade/rollback/restore drills, resource/retention tuning, all required agent/UI workflows, tested capital allocation/ramp and final adversarial review. These controls are developed earlier; P4 demonstrates the complete product, not the first time backups/security are considered.
 
-No live risk-increasing orders.
+Exit: complete PRODUCT_REQUIREMENTS acceptance, actual L6 scope/evidence, both modes usable with their validated eligible artifacts, required subscription/Loki workflows working, runbooks/supportable host and measured limitations. If one method has no defensible eligible strategy, retain that honest research result and keep full two-mode live acceptance pending.
 
-## Phase 5 — Execution + reconciliation
+## FUTURE — Global SaaS only
 
-Execution state machine, idempotent client IDs, selected execution foundation, exchange test adapter, partial fill/cancel flow, UNKNOWN state and reconciliation.
+Real tenancy/tenant isolation, identity/organizations/RBAC/SSO, billing/metering, commercial distribution/legal terms, broader compliance, global reliability/support and justified scaling. Paid AI API infrastructure is a commercial option, not a missing local safety feature. No Kubernetes, Kafka, service mesh, global HA or large security operations project without measured SaaS requirements.
 
-Start with simulation/testnet only.
+## Priority and change discipline
 
-## Phase 6 — Math Mode
+MUST: financial authority/accounting, scientific protocol, data causality, security, recovery, scoped certification and required user product behavior. SHOULD: mature component reuse, invariant/property testing and measured local observability. COULD: local inference, optional optimizers and extra analytics stores after evidence. DO NOT DO NOW: SaaS platform or unbounded agents/self-modifying live strategies.
 
-Quantitative features/models, expected-value/cost model, sizing, separate budget/P&L, Auto Trading controls, TradeIntent generation and deterministic fixtures.
-
-## Phase 7 — Strategy Mode
-
-Strategy registry/immutable versions, regime metadata, Low/Medium/High, separate budget/P&L, Auto Trading controls and TradeIntent generation.
-
-## Phase 8 — Permanent agent runtime
-
-Stable identity, permissions, task lifecycle, skill registry, governed memory, ExperienceRecords, audit and agent health.
-
-## Phase 9 — AI Gateway / Claude
-
-Claude CLI, Agent SDK and API adapters, UI-selectable provider/model, fallback/usage telemetry, local-auth boundary and provider outage behavior.
-
-## Phase 10 — Research lab
-
-Backtest/research engine integration, MLflow, optimization, datasets/features lineage, candidate registry, leakage/overfit controls and research-agent skills.
-
-## Phase 11 — Controlled learning
-
-Experience pipeline, post-trade analysis, drift, online/adaptive research path, lifecycle/promotion/rollback enforcement.
-
-## Phase 12 — Capital Growth Engine
-
-Mode/strategy allocation proposals, correlation/liquidity/regime inputs, performance-quality/sample-size gates, owner absolute caps and degradation de-allocation.
-
-## Phase 13 — Custom Command Center UI
-
-System health, portfolios, Math/Strategy controls, capital/risk profiles, Auto Trading, agents, skills/memory status, strategies/models, research, certification, audit, Global Kill and AI provider/model selection.
-
-## Phase 14 — Security hardening
-
-OpenBao, network/service least privilege, secret rotation, prompt-injection controls, dependency vulnerability scanning/SBOM, environment separation and hardening tests.
-
-## Phase 15 — Operations/recovery readiness
-
-Backup/restore drills, restart/replay/reconciliation recovery, upgrade/rollback, runbooks, monitoring/alerts and long-duration operational tests.
-
-## Phase 16 — L1/L2
-
-Backtest and simulation certification evidence.
-
-## Phase 17 — L3 Paper
-
-Real-time paper operation, stability, failure/restart and accounting evidence.
-
-## Phase 18 — L4 Shadow
-
-Live observation without orders, reconciliation proof and execution-estimate comparison.
-
-## Phase 19 — L5 Canary Authorized + owner-local bounded canary
-
-Owner enters withdrawal-disabled live key into local secret store and sets tiny capital cap/activation. Run bounded real canary on owner deployment and collect evidence.
-
-## Phase 20 — L6 LIVE CERTIFIED / Enterprise Local acceptance
-
-Resolve critical findings; verify recovery, duplicate-order protection, ledger, kill switch, monitoring/backups/runbooks; explicit owner live activation; final autonomous architecture/security audit.
-
-## Future Enterprise SaaS — separate
-
-Multiple users/orgs, real tenant isolation, RBAC/SSO/MFA, subscriptions/billing, commercial API, paid API-first AI usage/cost metering, HA/scaling and additional security/compliance/pentesting/customer admin.
+Failure at a scientific gate triggers a new documented hypothesis, not silent threshold relaxation. Failure at a safety gate blocks the dependent phase. Independent engineering may continue while authentic elapsed-market or owner-login evidence accumulates.

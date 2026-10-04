@@ -1,25 +1,17 @@
 # Autonomous Enterprise Local Master Goal
 
-Take CrazyTrader.ai from the audited baseline to **Enterprise Local / L6 LIVE CERTIFIED**, autonomously in Codex Cloud except for true external owner actions. Enterprise SaaS is out of scope.
+When explicitly launched, build CrazyTrader.ai v02 to complete PRODUCT_REQUIREMENTS acceptance with actual scope-bound L6 evidence on the owner-controlled deployment. Future SaaS is outside scope. This file describes a future implementation goal; reading or updating documentation does not start it.
 
-Required end state: custom single-owner product; Math and Strategy (Low/Medium/High); independent capital/P&L and Auto Trading controls; permanent agents with real skills/memory/permissions; Claude CLI/Agent SDK/API via AI Gateway; autonomous research/controlled learning; lifecycle; Capital Growth; Binance Spot; Hard Risk/OPA/execution/reconciliation/ledger; OpenBao/NATS/PostgreSQL/ClickHouse/object store/MLflow; custom UI; observability/backups/recovery/runbooks; L1-L6 evidence.
+Required end state: custom usable single-owner product; independent Math/Strategy control and accounting; validated eligible artifacts for each mode; eleven permanent agents with real skills/durable tasks including Loki; owner-native Claude CLI subscription operation demonstrated without automatic paid fallback; governed research/learning from all decisions; deterministic Hard Risk/OPA/atomic execution/ledger/reconciliation; tested local security, backups, recovery and observability. No predetermined profitable candidate, monthly return or forced trading count.
 
-Autonomous loop per phase: inspect status -> read specs -> ExecPlan -> implement -> test -> adversarial gate review -> repair -> update evidence -> commit/push -> auto-advance.
+Minimal infrastructure follows ADR-0007, not a mandatory stack shopping list. Follow OPEN_SOURCE_ADOPTION before reinventing mature mechanics. Keep exactly one execution state/sender authority and an independent balanced accounting ledger.
 
-Before inventing mature infrastructure, follow `OPEN_SOURCE_ADOPTION.md`.
+Per task: inspect STATUS/contracts -> create/update ExecPlan -> implement -> run meaningful tests -> adversarial review -> repair -> record evidence/limitations -> commit/push -> advance only after the dependent gate passes. Continue independent work during genuine market-observation/provider-login waits; never fabricate elapsed evidence.
 
-Codex Cloud never receives Binance live keys, owner Claude auth/session material or OpenBao unseal/bootstrap secrets. Final Claude local-auth validation and Binance canary/live run on owner-controlled deployment.
+Cloud development never receives live Binance credentials, Claude session/token material or secret-store recovery keys. Owner-local authentication and L5/L6 key/capital activation are true external actions. Complete independent work and checkpoint before requesting the minimum action. Do not ask routine implementation/phase-transition questions.
 
-Only ask owner for minimum true external action after completing all independent work and checkpointing.
+If no candidate meets economic criteria, record REJECTED/INSUFFICIENT_EVIDENCE and continue a bounded preregistered research plan; do not relax safety/selection controls or claim full-live completion. If an external product requirement cannot be met, record the exact blocker and alternatives without silently changing scope.
 
-Follow `CODEX_RESUME_PROTOCOL.md`. Auto-continue within budget. Budget-limited means paused, not completed. If platform requires manual Resume after reset, preserve state so that is the only action required.
+Use durable branch `codex/enterprise-local-autonomous`, preserve concurrent work and keep STATUS/DECISIONS/KNOWN_ISSUES/VALIDATION_LOG/ExecPlans current. Follow CODEX_RESUME_PROTOCOL for quota interruption; repository instructions cannot create unlimited model allowance or guaranteed platform auto-resume.
 
-Maintain STATUS, DECISIONS, KNOWN_ISSUES, VALIDATION_LOG and active ExecPlans. STATUS records phase/certification/branch/last commit/next action/blockers/usage/verification.
-
-Use durable branch (preferred `codex/enterprise-local-autonomous`) and push frequently.
-
-At major gates audit architecture drift, prompt/secret exposure, agent privilege creep, duplicate orders, idempotency, unknown-state recovery, risk-reduction availability, ledger invariants, event replay, stale data, policy/certification bypass, unvalidated promotion and dependency licensing/security.
-
-L5/L6 requires explicit owner action and local canary. If missing, set BLOCKED_FOR_OWNER_LIVE_VALIDATION. Do not declare complete.
-
-Master Goal completes only after actual L6 evidence exists, required tests pass, no critical defect remains, runbooks are ready, and SaaS has not been mixed into scope.
+Master Goal complete only when T030 passes with genuine product, engineering and economic evidence; missing owner activation, subscription compatibility or two-mode evidence is pending/blocked, never COMPLETE.

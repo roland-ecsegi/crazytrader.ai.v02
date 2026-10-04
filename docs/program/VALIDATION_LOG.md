@@ -44,3 +44,10 @@ Evidence:
 - historical v01 PR/issue references in the 2026-10-02 audit were clarified as provenance, not v02-local resources.
 
 Remaining external configuration note: repository visibility is public; change to private if proprietary source/strategy protection is desired. This is not a security control and does not block Phase 0.
+
+
+## 2026-10-04 — Documentation remediation verification
+
+Result: PASS DOCUMENTATION ONLY. See `docs/audit/DOCUMENTATION_CHECKS_2026-10-04.md` for exact command, reproducible checker and semantic-review scope. All 40 original paths retained; 54 Markdown files after revision (33 modified, 14 added, 7 unchanged). No code/dependencies/secrets/trading operations added. Relative links, canonical references, eleven agent roles, T000–T030 dependencies and F01–F24 traceability checked. Historical audit preserved byte-for-byte.
+
+Accepted design decisions: ADR-0007–0009; all runtime findings remain open until dependent implementation proof. Current L0 unchanged. Application/quant/provider/venue tests NOT RUN because implementation is missing. Publication is verified separately against the remote tree; no market observation or owner activation claimed.

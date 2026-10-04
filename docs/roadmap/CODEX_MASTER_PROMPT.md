@@ -1,41 +1,17 @@
-# Codex Master Prompt
+# Codex implementation Master Prompt
 
-Use this as a **Goal**, not a one-off task.
+Use as an explicitly launched implementation Goal, not as an instruction triggered by a documentation review.
 
-Work on repository `roland-ecsegi/crazytrader.ai.v02`.
+Work on `roland-ecsegi/crazytrader.ai.v02`, branch `codex/enterprise-local-autonomous`. Read AGENTS.md, .agent/PLANS.md, all current architecture/specs/accepted ADRs, roadmap, program state and the active ExecPlan. Check branch/head and preserve concurrent changes. Historical audits are evidence/provenance, not higher authority than accepted current contracts.
 
-Your persistent objective is to build CrazyTrader.ai all the way to **Enterprise Local / L6 LIVE CERTIFIED**, following the repository as source of truth.
+Build to Enterprise Local under PRODUCT_REQUIREMENTS and CODEX_TASK_GRAPH. Begin from actual STATUS; do not repeat completed documentation or claim it is implemented code. Use the dependency order T001–T030. Create executable contracts, meaningful tests and reproducible evidence, then automatically advance through passed gates. Record an independent adversarial review for financial authority and live gates; no routine owner review is required.
 
-Before implementation, read completely:
-- AGENTS.md
-- .agent/PLANS.md
-- docs/architecture/*
-- docs/specs/*
-- docs/adr/*
-- docs/roadmap/AUTONOMOUS_ENTERPRISE_LOCAL_GOAL.md
-- docs/roadmap/IMPLEMENTATION_ROADMAP.md
-- docs/roadmap/CODEX_TASK_GRAPH.md
-- docs/roadmap/CODEX_RESUME_PROTOCOL.md
-- docs/program/*
+Keep both trading modes independently controlled/accounted, initial candidate methods explicitly unvalidated until evidence, eleven durable agents including Loki, event-triggered bounded inference and the requested official Claude CLI subscription route. Implement real service-backed skills, not placeholder agent replies. Validate native auth/plan/model/isolation locally; no extracted subscription tokens, quota bypass, automatic paid fallback or unsupported Agent SDK auth assumptions.
 
-Operate in AUTONOMOUS PROGRAM MODE.
+Hard Risk, OPA, atomic reservations, single sender, reconciliation, ledger, Kill and deterministic protection must work without LLM availability. Do not build parallel order-state authorities. Follow local modular infrastructure ADR and reuse decisions; no mandatory distributed stack or future SaaS.
 
-Start from docs/program/STATUS.md and continue phase-by-phase. For every phase create/update its ExecPlan, implement, test, adversarially self-review, repair failures, update docs/program evidence, commit/push durable progress, then automatically continue to the next gate.
+Do not promise returns, force trades, hide rejected research or tune against an allegedly untouched holdout. Engineering certification, economic eligibility and product acceptance are distinct. L5 is a bounded explicitly owner-authorized local canary; general live requires scoped L6 plus owner activation. No live secrets or Claude auth enters cloud development.
 
-Do not ask routine engineering questions, request approval for ordinary phase transitions, or stop merely to report status.
+For each task: implement, verify, adversarially review, repair, update durable evidence and program state, commit/push, continue. Interrupt only for true external requirements such as native login, secret entry, paid-cost/product-scope change or live capital activation after independent work is complete. Document exact blocker and minimum action.
 
-Only interrupt me for a true external blocker that cannot safely be resolved from the repository, such as owner authentication, secure local secret entry, local Claude subscription login validation, Binance L5/L6 credentials/capital activation, or a genuinely non-derivable material legal/product decision. Before asking, finish every independent task and push a durable checkpoint.
-
-Use open-source-first engineering according to docs/architecture/OPEN_SOURCE_ADOPTION.md. Do not reinvent mature infrastructure before evaluating the approved candidate and recording compatibility/license decision.
-
-Preserve all financial trust-boundary rules. Codex Cloud must never receive live Binance credentials, owner Claude auth material or OpenBao unseal/bootstrap secrets.
-
-Math Mode remains quantitatively authoritative. Strategy Mode remains versioned/governed with Low/Medium/High. No fixed monthly profit promise or minimum trade count is a completion criterion.
-
-Do not implement Enterprise SaaS.
-
-Keep the Goal active and continue automatically while within Codex budget. If usage/budget limits stop the Goal, follow CODEX_RESUME_PROTOCOL.md: checkpoint/push everything, set status WAITING_FOR_CODEX_USAGE_RESET and preserve exact next action. If platform later resumes automatically, continue immediately. If product requires a Resume action after allowance resets, resume the same Goal/thread and continue from STATUS without asking me to restate the task.
-
-Do not declare complete until actual L6 LIVE CERTIFIED evidence exists. Missing owner-controlled L5/L6 credentials/activation means BLOCKED_FOR_OWNER_LIVE_VALIDATION, not complete.
-
-Continue until L6 Enterprise Local is genuinely achieved or a true external blocker is reached.
+Respect actual tool availability and usage limits. Follow CODEX_RESUME_PROTOCOL; checkpoint before interruption and resume the same goal from durable state. A platform stop, no eligible strategy or absent market evidence cannot be solved by declaring success. Continue until complete acceptance or a genuine external blocker, without silently reducing the user's target.
